@@ -1,17 +1,11 @@
 return {
 
   -- theme
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "tokyonight",
-    },
-  },
-
+  --
   {
     "folke/tokyonight.nvim",
     opts = {
-      style = "moon",
+      style = "night",
       transparent = true,
       styles = {
         sidebars = "transparent",
@@ -19,15 +13,28 @@ return {
         comments = {
           italic = true,
         },
-        -- keywords = { bold = true },
-        -- functions = { bold = true },
-        -- variables = { bold = true },
-        -- numbers = { bold = true },
-        -- booleans = { bold = true },
-        -- strings = { bold = true },
-        -- types = { bold = true },
       },
       sidebars = { "qf", "help" },
+    },
+  },
+  --
+  -- {
+  --   "tjdevries/colorbuddy.nvim",
+  -- },
+  -- {
+  --   "jordanbrauer/citylights.nvim",
+  --   dependencies = { "tjdevries/colorbuddy.nvim",branch= "dev" },
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("colorbuddy").colorscheme("citylights")
+  --   end
+  -- },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "tokyonight",
+      -- colorscheme = "citylights",
     },
   },
 
@@ -108,14 +115,14 @@ return {
   },
 
   -- nvim-cmp cmp-emojo  autocomplete
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
-  },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = { "hrsh7th/cmp-emoji" },
+  --   ---@param opts cmp.ConfigSchema
+  --   opts = function(_, opts)
+  --     table.insert(opts.sources, { name = "emoji" })
+  --   end,
+  -- },
 
   -- telescope find
   {
@@ -136,6 +143,25 @@ return {
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
+        cssls = {
+          settings = {
+            css = {
+              lint = {
+                unknownAtRules = "ignore",
+              },
+            },
+            scss = {
+              lint = {
+                unknownAtRules = "ignore",
+              },
+            },
+            less = {
+              lint = {
+                unknownAtRules = "ignore",
+              },
+            },
+          },
+        },
       },
     },
   },
@@ -165,16 +191,16 @@ return {
   },
 
   -- 🔮 自动补全源（加上 Tailwind / Emoji 之类）
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-    },
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
-  },
-
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = {
+  --     "hrsh7th/cmp-emoji",
+  --   },
+  --   opts = function(_, opts)
+  --     table.insert(opts.sources, { name = "emoji" })
+  --   end,
+  -- },
+  --
   -- bufferline tabbar
   {
     "akinsho/bufferline.nvim",
@@ -201,7 +227,7 @@ return {
             exclude = { "node_modules", ".DS_Store" },
             layout = {
               auto_hide = {
-                "input",
+                --     "input",
               },
             },
           },
