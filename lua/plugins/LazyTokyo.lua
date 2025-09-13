@@ -1,41 +1,35 @@
 return {
-
   -- theme
-  --
-  {
-    "folke/tokyonight.nvim",
-    opts = {
-      style = "night",
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-        comments = {
-          italic = true,
-        },
-      },
-      sidebars = { "qf", "help" },
-    },
-  },
-  --
-  -- {
-  --   "tjdevries/colorbuddy.nvim",
-  -- },
-  -- {
-  --   "jordanbrauer/citylights.nvim",
-  --   dependencies = { "tjdevries/colorbuddy.nvim",branch= "dev" },
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("colorbuddy").colorscheme("citylights")
-  --   end
-  -- },
   {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "tokyonight",
       -- colorscheme = "citylights",
     },
+  },
+  {
+    "folke/tokyonight.nvim",
+    opts = {
+      style = "night",
+      light_style = "day",
+      transparent = true,
+      -- terminal_colors = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variables = {},
+      },
+      -- day_brightness = 0.3,
+      -- lualine_bold = false,
+      on_color = function(colors) end,
+      on_highlights = function(hl, c)
+        hl.comment = { fg = "#41505e" }
+      end,
+    },
+    sidebars = { "qf", "help" },
   },
 
   -- statusbar
@@ -160,6 +154,9 @@ return {
                 unknownAtRules = "ignore",
               },
             },
+            tailwindcss = {
+              classFunctions = { "cva", "cx" },
+            },
           },
         },
       },
@@ -170,6 +167,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
+      indent = {
+        enable = true,
+      },
       ensure_installed = {
         "lua",
         "vim",
@@ -186,6 +186,12 @@ return {
         "markdown",
         "markdown_inline",
         "python",
+        "prisma",
+        "svelte",
+        "graphql",
+        "dockerfile",
+        "gitignore",
+        "query",
       },
     },
   },
@@ -231,6 +237,23 @@ return {
               },
             },
           },
+        },
+      },
+    },
+  },
+
+  {
+    "snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = [[ ! ]],
+        },
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 0.2, padding = 0 },
+          { icon = " ", title = "Projects", section = "projects", indent = 1, padding = 1 },
+          { section = "startup" },
         },
       },
     },
