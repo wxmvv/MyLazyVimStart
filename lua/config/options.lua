@@ -12,4 +12,4 @@ vim.opt.number = true
 vim.opt.relativenumber = false
 -- vim.guifont = []
 -- vim.opt.wrap = false
-
+-- vim.opt.showtabline = 0 -- 没作用

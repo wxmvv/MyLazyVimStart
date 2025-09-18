@@ -210,14 +210,32 @@ return {
   -- bufferline tabbar
   {
     "akinsho/bufferline.nvim",
-    opts = function(_, opts)
-      opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
-        show_buffer_icons = false, -- 不显示文件类型图标
-        show_buffer_close_icons = false, -- 不显示 buffer 的关闭按钮
-        show_close_icon = false, -- 不显示整个 tabline 的关闭按钮
-      })
-      return opts
+    enabled = false,
+    opts = {
+      options = {
+        groups = {
+          items = {},
+        },
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        show_buffer_icons = false,
+        always_show_bufferline = false,
+      },
+    },
+    keys = function()
+      return {
+        { "<leader>bp", false },
+        { "<leader>bP", false },
+      }
     end,
+    -- opts = function(_, opts)
+    --   opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
+    --     show_buffer_icons = false, -- 不显示文件类型图标
+    --     show_buffer_close_icons = false, -- 不显示 buffer 的关闭按钮
+    --     show_close_icon = false, -- 不显示整个 tabline 的关闭按钮
+    --   })
+    --   return opts
+    -- end,
   },
 
   -- snacks explorer
