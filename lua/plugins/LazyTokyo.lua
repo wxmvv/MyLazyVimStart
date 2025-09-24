@@ -64,27 +64,6 @@ return {
     },
   },
 
-  -- mason
-  {
-    "mason.nvim",
-    opts = {
-      ensure_installed = {
-        -- JS/TS
-        "typescript-language-server",
-        "eslint-lsp",
-        "prettier", -- 格式化
-        "css-lsp",
-        "html-lsp",
-        "vue-language-server", -- Volar
-        "tailwindcss-language-server",
-
-        -- 其他常用
-        "json-lsp",
-        "yaml-language-server",
-      },
-    },
-  },
-
   -- trouble
   {
     "folke/trouble.nvim",
@@ -108,22 +87,24 @@ return {
     },
   },
 
-  -- nvim-cmp cmp-emojo  autocomplete
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   dependencies = { "hrsh7th/cmp-emoji" },
-  --   ---@param opts cmp.ConfigSchema
-  --   opts = function(_, opts)
-  --     table.insert(opts.sources, { name = "emoji" })
-  --   end,
-  -- },
-
   -- telescope find
   {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
         file_ignore_patterns = { "node_modules", "browse_components", ".git" },
+      },
+      picker = {
+        find_files = {
+          hidden = true,
+          no_ignore = true,
+          file_ignore_patterns = {
+            "**/node_modules/*",
+            ".ruff_cache",
+            ".git/",
+            ".mypy_cache",
+          },
+        },
       },
     },
   },
@@ -136,6 +117,7 @@ return {
       ---@type lspconfig.options
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
+        stylua = false,
         pyright = {},
         cssls = {
           settings = {
@@ -196,17 +178,6 @@ return {
     },
   },
 
-  -- 🔮 自动补全源（加上 Tailwind / Emoji 之类）
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   dependencies = {
-  --     "hrsh7th/cmp-emoji",
-  --   },
-  --   opts = function(_, opts)
-  --     table.insert(opts.sources, { name = "emoji" })
-  --   end,
-  -- },
-  --
   -- bufferline tabbar
   {
     "akinsho/bufferline.nvim",
@@ -228,27 +199,58 @@ return {
         { "<leader>bP", false },
       }
     end,
-    -- opts = function(_, opts)
-    --   opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
-    --     show_buffer_icons = false, -- 不显示文件类型图标
-    --     show_buffer_close_icons = false, -- 不显示 buffer 的关闭按钮
-    --     show_close_icon = false, -- 不显示整个 tabline 的关闭按钮
-    --   })
-    --   return opts
-    -- end,
   },
 
   -- snacks explorer
   {
-    "folke/snacks.nvim",
+    "snacks.nvim",
     ---@class snacks.explorer.Config
     opts = {
+      dashboard = {
+        preset = {
+          -- https://github.com/nvimdev/dashboard-nvim/wiki/Ascii-Header-Text
+          header = [[ 
+ ooooo                                                              
+`888'                                                              
+ 888          .oooo.     oooooooo oooo    ooo                      
+ 888         `P  )88b   d'""7d8P   `88.  .8'                       
+ 888          .oP"888     .d8P'     `88..8'                        
+ 888       o d8(  888   .d8P'  .P    `888'                         
+o888ooooood8 `Y888""8o d8888888P      .8'                          
+                                  .o..P'                           
+                                  `Y8P'                            
+                                                                   
+ooooooooooooo   .oooooo.   oooo    oooo oooooo   oooo   .oooooo.   
+8'   888   `8  d8P'  `Y8b  `888   .8P'   `888.   .8'   d8P'  `Y8b  
+     888      888      888  888  d8'      `888. .8'   888      888 
+     888      888      888  88888[         `888.8'    888      888 
+     888      888      888  888`88b.        `888'     888      888 
+     888      `88b    d88'  888  `88b.       888      `88b    d88' 
+    o888o      `Y8bood8P'  o888o  o888o     o888o      `Y8bood8P'  
+    ]],
+        },
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 0.2, padding = 0 },
+          { icon = " ", title = "Projects", section = "projects", indent = 1, padding = 1 },
+          { section = "startup" },
+        },
+      },
       picker = {
         sources = {
+          -- 这里是 find files
+          smart = {
+            exclude = { "node_modules", ".git", ".DS_Store" },
+            hidden = false, -- 是否显示隐藏文件（按需）
+            ignored = true, -- 是否忽略 .gitignore（按需）
+          },
+          files = {
+            exclude = { "node_modules", ".git", ".DS_Store" },
+          },
           explorer = {
-            hidden = true,
-            ignored = false,
-            exclude = { "node_modules", ".DS_Store" },
+            hidden = false,
+            ignored = true,
+            exclude = { "node_modules", ".git", ".DS_Store" },
             layout = {
               auto_hide = {
                 --     "input",
@@ -260,19 +262,38 @@ return {
     },
   },
 
+  -- mason
   {
-    "snacks.nvim",
+    "mason-org/mason.nvim",
     opts = {
-      dashboard = {
-        preset = {
-          header = [[ ! ]],
-        },
-        sections = {
-          { section = "header" },
-          { section = "keys", gap = 0.2, padding = 0 },
-          { icon = " ", title = "Projects", section = "projects", indent = 1, padding = 1 },
-          { section = "startup" },
-        },
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "flake8",
+        -- JS/TS
+        "typescript-language-server",
+        "eslint-lsp",
+        "prettier", -- 格式化
+        "css-lsp",
+        "html-lsp",
+        "vue-language-server", -- Volar
+        "tailwindcss-language-server",
+
+        -- 其他常用
+        "json-lsp",
+        "yaml-language-server",
+      },
+    },
+  },
+
+  -- yanky
+  {
+    "gbprod/yanky.nvim",
+    opts = {
+      highlight = { timer = 150 },
+      ring = {
+        history_length = 100,
       },
     },
   },
