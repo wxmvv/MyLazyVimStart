@@ -178,6 +178,11 @@ return {
     },
   },
 
+  {
+    "Exafunction/windsurf.vim",
+    -- event = "BufEnter",
+  },
+
   -- bufferline tabbar
   {
     "akinsho/bufferline.nvim",
@@ -286,6 +291,15 @@ ooooooooooooo   .oooooo.   oooo    oooo oooooo   oooo   .oooooo.
       },
     },
   },
+
+  -- 使用tab进行补全
+  -- 首先 禁用LuaSnip中默认的tab快捷键
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   keys = function()
+  --     return {}
+  --   end,
+  -- },
 
   -- yanky
   {
